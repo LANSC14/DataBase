@@ -1,0 +1,44 @@
+資料庫
+
+主題：
+
+學生
+ID(int)
+名字(string)
+學號（int)
+院系(string)
+EMAIL(string)
+
+課程
+ID(int)
+名稱(string)
+開課院系（string)
+任課老師（string)
+上課教室(string)
+上課日期（string)
+
+
+Create database platform character set utf8 collate utf8_general_ci;
+
+Use class ;
+
+CREATE TABLE student
+(
+    studentid  Int Not Null,
+    name varchar(100),
+    number varchar(100),
+    college varchar(100),
+    email varchar(100)
+);
+
+Use lesson ;
+
+CREATE TABLE video
+(
+    lessonid  Int NOT NULL ,
+    name varchar(100),
+    department varchar(100),
+    prof varchar(100),
+    classroom varchar(100),
+    date varchar(100)
+);
