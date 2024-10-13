@@ -31,9 +31,9 @@ CREATE TABLE student
     email varchar(100)
 );
 
-Use lesson ;
+Use class ;
 
-CREATE TABLE video
+CREATE TABLE lesson
 (
     lessonid  Int NOT NULL ,
     name varchar(100),
@@ -41,4 +41,15 @@ CREATE TABLE video
     prof varchar(100),
     classroom varchar(100),
     date varchar(100)
+);
+
+Use class ;
+
+CREATE TABLE `selection`
+(
+`studentID` Int,
+`lessonID` Int,
+PRIMARY KEY (`studentID`,`lessonID`),
+FOREIGN KEY (`studentID`) REFERENCES `student`(`studentID`),
+FOREIGN KEY (`lessonID`) REFERENCES `lesson`(`lessonID`)
 );
