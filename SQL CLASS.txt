@@ -53,3 +53,26 @@ PRIMARY KEY (`studentID`,`lessonID`),
 FOREIGN KEY (`studentID`) REFERENCES `student`(`studentID`),
 FOREIGN KEY (`lessonID`) REFERENCES `lesson`(`lessonID`)
 );
+
+INSERT into student value(1,'周杰倫','4110001111','資圖3A','410001111@gms.tku.edu.tw');
+INSERT into student value(2,'謝和弦','4110001112','資圖3A','410001112@gms.tku.edu.tw');
+INSERT into student value(3,'豬哥亮','4110001113','資圖3A','410001113@gms.tku.edu.tw');
+INSERT into student value(4,'謝欣達','4110001114','資圖3A','410001114@gms.tku.edu.tw');
+INSERT into student value(5,'賴清德','4110001115','資圖3A','410001115@gms.tku.edu.tw');
+INSERT into student value(6,'王世堅','4110001116','資圖3A','410001116@gms.tku.edu.tw');
+
+
+INSERT into lesson value(1,'資訊組織','資圖一','王陽明','L507','星期一');
+INSERT into lesson value(2,'資料庫概論','資圖三','馬英九','L101','星期二');
+INSERT into lesson value(3,'進修英文','資圖二','陳水扁','L302','星期六');
+INSERT into lesson value(4,'大學學習','資圖一','貝多芬','L403','星期日');
+INSERT into lesson value(5,'參考資源與服務','資圖一','莫札特','L404','星期五');
+INSERT into lesson value(6,'程式設計','資圖二','習近平','L201','星期日');
+
+INSERT into selection values(1,1);
+INSERT into selection values(2,1);
+INSERT into selection values(3,1);
+INSERT into selection values(4,1);
+INSERT into selection values(5,1);
+INSERT into selection values(6,1);
+
