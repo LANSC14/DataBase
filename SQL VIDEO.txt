@@ -15,9 +15,9 @@ Email(string)
 片長（string)
 上架日期（string)
 
-Create database platform character set utf8 collate utf8_general_ci;
+Create database 113dbb06 character set utf8 collate utf8_general_ci;
 
-Use platform ;
+Use 113dbb06 ;
 
 CREATE TABLE user
 (
@@ -26,8 +26,6 @@ CREATE TABLE user
     number varchar(100),
     email varchar(100)
 );
-
-Use platform ;
 
 CREATE TABLE video
 (
