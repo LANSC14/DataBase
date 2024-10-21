@@ -13,32 +13,29 @@ if ($conn->connect_error) {
     die("連線失敗: " . $conn->connect_error);
 }
 echo "連線成功<br>";
+echo "目前連接的資料庫: " . $dbname . "<br>";
 
-// 分頁參數設置
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$cardsPerPage = isset($_GET['cardsPerPage']) ? (int)$_GET['cardsPerPage'] : 10;
+// 設置資料庫連線的字符集為 UTF-8
+$conn->set_charset("utf8mb4");
 
-// SQL 查詢
-$sql_select_all = "SELECT * FROM student LIMIT ?, ?";
-$stmt = $conn->prepare($sql_select_all);
-$offset = ($page - 1) * $cardsPerPage;
-$stmt->bind_param("ii", $offset, $cardsPerPage);
+// 查詢 student 資料表中的所有資料
+$sql = "SELECT * FROM student";
+$result = $conn->query($sql);
 
-if ($stmt->execute() === false) {
-    echo "查詢失敗: " . $stmt->error;
-} else {
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "ID: " . $row["studentid"] . " - 名字: " . $row["name"] . " - 學號: " . $row["number"] . "<br>";
-        }
-    } else {
-        echo "0 結果";
+// 檢查是否查詢失敗
+if ($result === false) {
+    die("查詢失敗: " . $conn->error);
+}
+
+// 檢查查詢結果並輸出資料
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        echo "學號: " . $row["studentid"] . " - 姓名: " . $row["name"] . "<br>";
     }
+} else {
+    echo "沒有找到資料";
 }
 
 // 關閉資料庫連線
-$stmt->close();
 $conn->close();
 ?>
-
