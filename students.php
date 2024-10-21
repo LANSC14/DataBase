@@ -34,4 +34,4 @@ $totalResult = mysqli_query($conn, $sqlTotal);
 $totalRow = mysqli_fetch_array($totalResult);
 $totalRecords = $totalRow[0];
 $totalPages = ceil($totalRecords / $cardsPerPage);
-?>
+
