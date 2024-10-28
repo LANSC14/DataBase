@@ -1,0 +1,176 @@
+資料庫
+
+主題：
+
+學生
+ID(int)
+名字(string)
+學號（int)
+院系(string)
+EMAIL(string)
+
+課程
+ID(int)
+名稱(string)
+開課院系（string)
+任課老師（string)
+上課教室(string)
+上課日期（string)
+
+CREATE DATABASE 113dbb06 CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+USE 113dbb06;
+
+CREATE TABLE student
+(
+    studentid INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100),
+    number VARCHAR(100),
+    college VARCHAR(100),
+    email VARCHAR(100),
+    PRIMARY KEY (studentid)
+);
+
+CREATE TABLE lesson
+(
+    lessonid INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100),
+    department VARCHAR(100),
+    prof VARCHAR(100),
+    classroom VARCHAR(100),
+    date VARCHAR(100),
+    PRIMARY KEY (lessonid)
+);
+
+CREATE TABLE selection
+(
+    studentID INT,
+    lessonID INT,
+    PRIMARY KEY (studentID, lessonID),
+    FOREIGN KEY (studentID) REFERENCES student(studentid),
+    FOREIGN KEY (lessonID) REFERENCES lesson(lessonid)
+);
+
+INSERT INTO student VALUES (NULL, '周杰倫', '4110001111', '資圖3A', '410001111@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '謝和弦', '4110001112', '資圖3A', '410001112@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '豬哥亮', '4110001113', '資圖3A', '410001113@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '謝欣達', '4110001114', '資圖3A', '410001114@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '賴清德', '4110001115', '資圖3A', '410001115@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '王世堅', '4110001116', '資圖3A', '410001116@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '張志明', '4110001117', '資圖3A', '410001117@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '林青霞', '4110001118', '資圖3A', '410001118@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '陳奕迅', '4110001119', '資圖3A', '410001119@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '劉德華', '4110001120', '資圖3A', '410001120@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '梁朝偉', '4110001121', '資圖3A', '410001121@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '劉青雲', '4110001122', '資圖3A', '410001122@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '郭富城', '4110001123', '資圖3A', '410001123@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '鄭伊健', '4110001124', '資圖3A', '410001124@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '張學友', '4110001125', '資圖3A', '410001125@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '李連杰', '4110001126', '資圖3A', '410001126@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '成龍', '4110001127', '資圖3A', '410001127@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '鄧麗君', '4110001128', '資圖3A', '410001128@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '張國榮', '4110001129', '資圖3A', '410001129@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '王菲', '4110001130', '資圖3A', '410001130@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '古天樂', '4110001131', '資圖3A', '410001131@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '舒淇', '4110001132', '資圖3A', '410001132@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '張柏芝', '4110001133', '資圖3A', '410001133@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '楊千嬅', '4110001134', '資圖3A', '410001134@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '周星馳', '4110001135', '資圖3A', '410001135@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '黃秋生', '4110001136', '資圖3A', '410001136@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '莫文蔚', '4110001137', '資圖3A', '410001137@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '吳君如', '4110001138', '資圖3A', '410001138@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '李玟', '4110001139', '資圖3A', '410001139@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '王祖賢', '4110001140', '資圖3A', '410001140@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '黎明', '4110001141', '資圖3A', '410001141@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '舒曼', '4110001142', '資圖3A', '410001142@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '陳冠希', '4110001143', '資圖3A', '410001143@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '楊祐寧', '4110001144', '資圖3A', '410001144@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '林志玲', '4110001145', '資圖3A', '410001145@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '郭書瑤', '4110001146', '資圖3A', '410001146@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '柯震東', '4110001147', '資圖3A', '410001147@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '彭于晏', '4110001148', '資圖3A', '410001148@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '林宥嘉', '4110001149', '資圖3A', '410001149@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '蔡依林', '4110001150', '資圖3A', '410001150@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '張韶涵', '4110001151', '資圖3A', '410001151@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '王心凌', '4110001152', '資圖3A', '410001152@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '羅志祥', '4110001153', '資圖3A', '410001153@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '曾志偉', '4110001154', '資圖3A', '410001154@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '胡瓜', '4110001155', '資圖3A', '410001155@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '藍心湄', '4110001156', '資圖3A', '410001156@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '李宗盛', '4110001157', '資圖3A', '410001157@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '鄧超', '4110001158', '資圖3A', '410001158@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '鹿晗', '4110001159', '資圖3A', '410001159@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '范冰冰', '4110001160', '資圖3A', '410001160@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '霍建華', '4110001161', '資圖3A', '410001161@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '楊冪', '4110001162', '資圖3A', '410001162@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '劉詩詩', '4110001163', '資圖3A', '410001163@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '胡歌', '4110001164', '資圖3A', '410001164@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '黃曉明', '4110001165', '資圖3A', '410001165@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '趙麗穎', '4110001166', '資圖3A', '410001166@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '鄭爽', '4110001167', '資圖3A', '410001167@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '吳奇隆', '4110001168', '資圖3A', '410001168@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '周迅', '4110001169', '資圖3A', '410001169@gms.tku.edu.tw');
+INSERT INTO student VALUES (NULL, '白百何', '4110001170', '資圖3A', '410001170@gms.tku.edu.tw');
+
+
+INSERT INTO lesson VALUES (NULL, '圖書館管理', '資圖三', '魯迅', 'L301', '星期一');
+INSERT INTO lesson VALUES (NULL, '數位資料保存', '資圖二', '李鴻章', 'L204', '星期三');
+INSERT INTO lesson VALUES (NULL, '檔案管理實務', '資圖一', '徐志摩', 'L305', '星期四');
+INSERT INTO lesson VALUES (NULL, '網路安全概論', '資圖二', '李白', 'L208', '星期二');
+INSERT INTO lesson VALUES (NULL, '資料科學導論', '資圖三', '蘇軾', 'L102', '星期五');
+INSERT INTO lesson VALUES (NULL, '數位學習', '資圖二', '杜甫', 'L409', '星期六');
+INSERT INTO lesson VALUES (NULL, '資訊倫理', '資圖一', '司馬遷', 'L107', '星期四');
+INSERT INTO lesson VALUES (NULL, '資訊檢索技術', '資圖三', '孔子', 'L506', '星期一');
+INSERT INTO lesson VALUES (NULL, '知識管理', '資圖二', '莊子', 'L303', '星期日');
+INSERT INTO lesson VALUES (NULL, '資訊視覺化', '資圖一', '墨子', 'L406', '星期二');
+INSERT INTO lesson VALUES (NULL, '人機互動', '資圖三', '杜牧', 'L501', '星期三');
+INSERT INTO lesson VALUES (NULL, '人工智慧導論', '資圖一', '韓愈', 'L407', '星期五');
+INSERT INTO lesson VALUES (NULL, '多媒體資料處理', '資圖二', '孟子', 'L210', '星期四');
+INSERT INTO lesson VALUES (NULL, '資訊系統分析', '資圖一', '老子', 'L301', '星期六');
+INSERT INTO lesson VALUES (NULL, '圖書館自動化', '資圖三', '賈寶玉', 'L504', '星期日');
+INSERT INTO lesson VALUES (NULL, '知識圖譜', '資圖二', '曹雪芹', 'L408', '星期二');
+INSERT INTO lesson VALUES (NULL, '數據庫技術', '資圖一', '霍去病', 'L103', '星期三');
+INSERT INTO lesson VALUES (NULL, '文獻探討', '資圖三', '諸葛亮', 'L205', '星期四');
+INSERT INTO lesson VALUES (NULL, '資料庫應用', '資圖二', '司馬光', 'L106', '星期五');
+INSERT INTO lesson VALUES (NULL, '網頁設計', '資圖一', '陶淵明', 'L305', '星期六');
+INSERT INTO lesson VALUES (NULL, '數位資源管理', '資圖三', '李清照', 'L407', '星期日');
+INSERT INTO lesson VALUES (NULL, '資訊安全管理', '資圖二', '辛棄疾', 'L101', '星期一');
+INSERT INTO lesson VALUES (NULL, '數據分析', '資圖一', '周瑜', 'L302', '星期二');
+INSERT INTO lesson VALUES (NULL, '數位典藏', '資圖三', '秦始皇', 'L205', '星期五');
+INSERT INTO lesson VALUES (NULL, '開放數據應用', '資圖一', '項羽', 'L306', '星期三');
+INSERT INTO lesson VALUES (NULL, '計算機網絡基礎', '資圖二', '李世民', 'L107', '星期六');
+INSERT INTO lesson VALUES (NULL, '信息檢索', '資圖三', '漢高祖', 'L505', '星期四');
+INSERT INTO lesson VALUES (NULL, '數位資源檢索', '資圖二', '秦檜', 'L109', '星期日');
+INSERT INTO lesson VALUES (NULL, '數據挖掘導論', '資圖一', '司馬炎', 'L304', '星期一');
+INSERT INTO lesson VALUES (NULL, '雲端運算基礎', '資圖三', '劉備', 'L108', '星期二');
+
+INSERT INTO selection VALUES (1, 2);
+INSERT INTO selection VALUES (2, 3);
+INSERT INTO selection VALUES (3, 4);
+INSERT INTO selection VALUES (4, 5);
+INSERT INTO selection VALUES (5, 6);
+INSERT INTO selection VALUES (6, 7);
+INSERT INTO selection VALUES (7, 8);
+INSERT INTO selection VALUES (8, 9);
+INSERT INTO selection VALUES (9, 10);
+INSERT INTO selection VALUES (10, 11);
+INSERT INTO selection VALUES (11, 12);
+INSERT INTO selection VALUES (12, 13);
+INSERT INTO selection VALUES (13, 14);
+INSERT INTO selection VALUES (14, 15);
+INSERT INTO selection VALUES (15, 16);
+INSERT INTO selection VALUES (16, 17);
+INSERT INTO selection VALUES (17, 18);
+INSERT INTO selection VALUES (18, 19);
+INSERT INTO selection VALUES (19, 20);
+INSERT INTO selection VALUES (20, 21);
+INSERT INTO selection VALUES (21, 22);
+INSERT INTO selection VALUES (22, 23);
+INSERT INTO selection VALUES (23, 24);
+INSERT INTO selection VALUES (24, 25);
+INSERT INTO selection VALUES (25, 26);
+INSERT INTO selection VALUES (26, 27);
+INSERT INTO selection VALUES (27, 28);
+INSERT INTO selection VALUES (28, 29);
+INSERT INTO selection VALUES (29, 30);
+INSERT INTO selection VALUES (30, 1);
