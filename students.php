@@ -3,7 +3,7 @@ if (mysqli_connect_errno()) {
     echo "连接至 MySQL 失败: " . mysqli_connect_error();
 }
 
-$conn = mysqli_connect('localhost', '113dbb06', '2476-3247', '113dbb06');
+$conn = mysqli_connect('localhost', 'root', '', '113dbb06');
 mysqli_query($conn, 'SET NAMES utf8');
 mysqli_query($conn, 'SET CHARACTER_SET_CLIENT=utf8');
 mysqli_query($conn, 'SET CHARACTER_SET_RESULTS=utf8');
@@ -20,7 +20,7 @@ $conn->set_charset("utf8mb4");
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Portfolio - Active Bootstrap Template</title>
+    <title>學生查詢</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
 
@@ -81,10 +81,10 @@ $conn->set_charset("utf8mb4");
           <ul>
             <li><a href="index.html" class="active">首頁</a></li>
             <li><a href="news.html">最新消息</a></li>
-            <li><a href="students.php">學生查詢</a></li>
-            <li><a href="lesson.html">課程查詢</a></li>
+            <li><a href="dashboard.php">課程查詢</a></li>
             <li><a href="personal.html">個人設置</a></li>
             <li><a href="contact.html">聯絡我們</a></li>
+            <li><a href="login.html">登入</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>

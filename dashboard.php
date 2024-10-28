@@ -61,9 +61,9 @@ if (isset($_POST['search_term'])) {
                     <li><a href="index.html" class="active">首頁</a></li>
                     <li><a href="news.html">最新消息</a></li>
                     <li><a href="students.php">學生查詢</a></li>
-                    <li><a href="lesson.html">課程查詢</a></li>
                     <li><a href="personal.html">個人設置</a></li>
                     <li><a href="contact.html">聯絡我們</a></li>
+                    <li><a href="login.html">登入</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
