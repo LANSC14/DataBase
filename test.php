@@ -47,7 +47,8 @@ if (isset($_POST['search_term'])) {
             <ul>
                 <li><a href="index.html">首頁</a></li>
                 <li><a href="news.html">最新消息</a></li>
-                <li><a href="dashboard.php" class="active">課程查詢</a></li>
+                <li><a href="students.php">學生查詢</a></li>
+                <li><a href="test.php" class="active">課程查詢</a></li>
                 <li><a href="personal.html">個人設置</a></li>
                 <li><a href="contact.html">聯絡我們</a></li>
                 <li><a href="login.html">登入</a></li>
@@ -131,6 +132,9 @@ if (isset($_POST['search_term'])) {
                         臺北校園：台北市大安區金華街199巷5號<br />
                         蘭陽校園：宜蘭縣礁溪鄉林美村林尾路180號
                     </p>
+                    <p class="mb-0">
+                <a href="contact.html" class="btn-learn-more">查看更多</a>
+              </p>
                 </div>
             </div>
         </div>
