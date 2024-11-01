@@ -1,28 +1,15 @@
+
 <?php
-// 連接至 MySQL
-$conn = mysqli_connect('localhost', 'root', '', '113dbb06');
+// 建立資料庫連線
+$conn = mysqli_connect('localhost', '113dbb06', '2476-3247', '113dbb06');
 
+// 檢查資料庫連線
 if (!$conn) {
-    die("連接至 MySQL 失敗: " . mysqli_connect_error());
+    die("连接至 MySQL 失败: " . mysqli_connect_error());
 }
 
-mysqli_set_charset($conn, "utf8");
 
-// 查詢課程資料
-if (isset($_POST['search_term'])) {
-    $searchTerm = mysqli_real_escape_string($conn, $_POST['search_term']);
-    $query = "SELECT * FROM lesson WHERE name LIKE '%$searchTerm%'";
-    $result = mysqli_query($conn, $query);
-
-    $lessons = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $lessons[] = $row;
-    }
-    echo json_encode($lessons);
-    exit();
-}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,6 +88,7 @@ if (isset($_POST['search_term'])) {
             }
         } ?>
         
+    <!-- 
         <h3 class="my-4">課程管理</h3>
         <input type="text" id="searchInput" class="form-control mb-3" placeholder="查詢課程名稱" onkeyup="searchLessons()">
         <button class="btn btn-success mb-3" onclick="openLessonForm()">新增課程</button>
@@ -118,6 +106,7 @@ if (isset($_POST['search_term'])) {
             </thead>
             <tbody id="lessonTable"></tbody>
         </table>
+        -->
     </div>
 </main>
 
