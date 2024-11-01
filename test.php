@@ -38,7 +38,7 @@ if (isset($_POST['search_term'])) {
 <body class="portfolio-page">
 <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-        <a href="test.php" class="logo d-flex align-items-center">
+        <a href="index.html" class="logo d-flex align-items-center">
             <h1 class="sitename">
                 <img src="assets/img/2.jpg" width="40px" height="45px" />Top
             </h1>
