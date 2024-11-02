@@ -3,7 +3,7 @@ if (mysqli_connect_errno()) {
     echo "连接至 MySQL 失败: " . mysqli_connect_error();
 }
 
-$conn = mysqli_connect('localhost', 'root', '', '113dbb06');
+$conn = mysqli_connect('localhost', '113dbb06', '2476-3247', '113dbb06');
 mysqli_query($conn, 'SET NAMES utf8');
 mysqli_query($conn, 'SET CHARACTER_SET_CLIENT=utf8');
 mysqli_query($conn, 'SET CHARACTER_SET_RESULTS=utf8');
@@ -20,7 +20,7 @@ $conn->set_charset("utf8mb4");
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>學生查詢</title>
+    <title>Portfolio - Active Bootstrap Template</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
 
@@ -69,7 +69,7 @@ $conn->set_charset("utf8mb4");
       <div
         class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between"
       >
-        <a href="index.html" class="logo d-flex align-items-center">
+        <a href="students.html" class="logo d-flex align-items-center">
           <!-- Uncomment the line below if you also wish to use an image logo -->
           <!-- <img src="assets/img/logo.png" alt=""> -->
           <h1 class="sitename">
@@ -82,10 +82,9 @@ $conn->set_charset("utf8mb4");
             <li><a href="index.html" class="active">首頁</a></li>
             <li><a href="news.html">最新消息</a></li>
             <li><a href="students.php">學生查詢</a></li>
-            <li><a href="test.php">課程查詢</a></li>
+            <li><a href="lesson.html">課程查詢</a></li>
             <li><a href="personal.html">個人設置</a></li>
             <li><a href="contact.html">聯絡我們</a></li>
-            <li><a href="login.html">登入</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
