@@ -131,7 +131,7 @@ if (isset($_GET['student_field']) && isset($_GET['student_key'])) {
 } ?>
 
     </div>
-      <!-- 補上這個結尾的div -->
+      
     </main>
 
     <footer id="footer" class="footer light-background">
