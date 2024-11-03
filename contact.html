@@ -37,14 +37,6 @@
 
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet" />
-
-    <!-- =======================================================
-  * Template Name: Active
-  * Template URL: https://bootstrapmade.com/active-bootstrap-website-template/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
   </head>
 
   <body class="contact-page">
@@ -53,8 +45,6 @@
         class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between"
       >
         <a href="index.html" class="logo d-flex align-items-center">
-          <!-- Uncomment the line below if you also wish to use an image logo -->
-          <!-- <img src="assets/img/logo.png" alt=""> -->
           <h1 class="sitename">
             <img src="assets/img/2.jpg" width="40px" height="45px" />Top
           </h1>
@@ -62,12 +52,12 @@
 
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="index.html" class="active">首頁</a></li>
+            <li><a href="index.html">首頁</a></li>
             <li><a href="news.html">最新消息</a></li>
             <li><a href="students.php">學生查詢</a></li>
-            <li><a href="test.php">課程查詢</a></li>
-            <li><a href="personal.html">個人設置</a></li>
-            <li><a href="contact.html">聯絡我們</a></li>
+            <li><a href="lesson.php">課程查詢</a></li>
+
+            <li><a href="contact.html" class="active">關於我們</a></li>
             <li><a href="login.html">登入</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -79,122 +69,82 @@
       <!-- Page Title -->
       <div class="page-title light-background">
         <div class="container">
-          <h1>聯絡我們</h1>
+          <h1>關於我們</h1>
           <nav class="breadcrumbs">
             <ol>
               <li><a href="index.html">首頁</a></li>
-              <li class="current">聯絡我們</li>
+              <li class="current">關於我們</li>
             </ol>
           </nav>
         </div>
       </div>
       <!-- End Page Title -->
-
-      <!-- Contact Section -->
-      <section id="contact" class="contact section">
-        <div class="container" data-aos="fade">
-          <div class="row gy-5 gx-lg-5">
-            <div class="col-lg-4">
-              <div class="info">
-                <h3>Get in touch</h3>
-                <p>
-                  Et id eius voluptates atque nihil voluptatem enim in tempore
-                  minima sit ad mollitia commodi minus.
-                </p>
-
-                <div class="info-item d-flex">
-                  <i class="bi bi-geo-alt flex-shrink-0"></i>
-                  <div>
-                    <h4>Location:</h4>
-                    <p>A108 Adam Street, New York, NY 535022</p>
-                  </div>
-                </div>
-                <!-- End Info Item -->
-
-                <div class="info-item d-flex">
-                  <i class="bi bi-envelope flex-shrink-0"></i>
-                  <div>
-                    <h4>Email:</h4>
-                    <p>info@example.com</p>
-                  </div>
-                </div>
-                <!-- End Info Item -->
-
-                <div class="info-item d-flex">
-                  <i class="bi bi-phone flex-shrink-0"></i>
-                  <div>
-                    <h4>Call:</h4>
-                    <p>+1 5589 55488 55</p>
-                  </div>
-                </div>
-                <!-- End Info Item -->
-              </div>
+      <!-- About Us Section -->
+      <section class="container my-5">
+        <h2 class="text-center mb-4">組員名單</h2>
+        <div class="row text-center">
+          <!-- Team Member 1 -->
+          <div class="col-md-4 mb-4">
+            <div class="team-member p-4 border rounded">
+              <h5>郭沛忻</h5>
+              <p>411000580</p>
             </div>
+          </div>
 
-            <div class="col-lg-8">
-              <form
-                action="forms/contact.php"
-                method="post"
-                role="form"
-                class="php-email-form"
-              >
-                <div class="row">
-                  <div class="col-md-6 form-group">
-                    <input
-                      type="text"
-                      name="name"
-                      class="form-control"
-                      id="name"
-                      placeholder="Your Name"
-                      required=""
-                    />
-                  </div>
-                  <div class="col-md-6 form-group mt-3 mt-md-0">
-                    <input
-                      type="email"
-                      class="form-control"
-                      name="email"
-                      id="email"
-                      placeholder="Your Email"
-                      required=""
-                    />
-                  </div>
-                </div>
-                <div class="form-group mt-3">
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="subject"
-                    id="subject"
-                    placeholder="Subject"
-                    required=""
-                  />
-                </div>
-                <div class="form-group mt-3">
-                  <textarea
-                    class="form-control"
-                    name="message"
-                    placeholder="Message"
-                    required=""
-                  ></textarea>
-                </div>
-                <div class="my-3">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">
-                    Your message has been sent. Thank you!
-                  </div>
-                </div>
-                <div class="text-center">
-                  <button type="submit">Send Message</button>
-                </div>
-              </form>
+          <!-- Team Member 2 -->
+          <div class="col-md-4 mb-4">
+            <div class="team-member p-4 border rounded">
+              <h5>楊禾汝</h5>
+              <p>411000465</p>
             </div>
-            <!-- End Contact Form -->
+          </div>
+
+          <!-- Team Member 3 -->
+          <div class="col-md-4 mb-4">
+            <div class="team-member p-4 border rounded">
+              <h5>張可芯</h5>
+              <p>411000424</p>
+            </div>
+          </div>
+
+          <!-- Team Member 4 -->
+          <div class="col-md-4 mb-4">
+            <div class="team-member p-4 border rounded">
+              <h5>王宣甯</h5>
+              <p>412007113</p>
+            </div>
+          </div>
+
+          <!-- Team Member 5 -->
+          <div class="col-md-4 mb-4">
+            <div class="team-member p-4 border rounded">
+              <h5>符鎵瀅</h5>
+              <p>410007248</p>
+            </div>
+          </div>
+
+          <!-- Team Member 6 -->
+          <div class="col-md-4 mb-4">
+            <div class="team-member p-4 border rounded">
+              <h5>陳冠亦</h5>
+              <p>410001118</p>
+            </div>
           </div>
         </div>
+
+        <!-- Horizontal Line -->
+        <hr class="my-5" />
+
+        <!-- PDF Link -->
+        <div class="text-center">
+          <a
+            href="path/to/your/file.pdf"
+            target="_blank"
+            class="btn btn-primary"
+            >期中報告</a
+          >
+        </div>
       </section>
-      <!-- /Contact Section -->
     </main>
 
     <footer id="footer" class="footer light-background">

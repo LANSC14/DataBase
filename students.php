@@ -13,14 +13,12 @@ $conn->set_charset("utf8mb4");
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Portfolio - Active Bootstrap Template</title>
+    <title>學生查詢</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
 
@@ -54,14 +52,6 @@ $conn->set_charset("utf8mb4");
 
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet" />
-
-    <!-- =======================================================
-  * Template Name: Active
-  * Template URL: https://bootstrapmade.com/active-bootstrap-website-template/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
   </head>
 
   <body class="portfolio-page">
@@ -69,9 +59,7 @@ $conn->set_charset("utf8mb4");
       <div
         class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between"
       >
-        <a href="students.html" class="logo d-flex align-items-center">
-          <!-- Uncomment the line below if you also wish to use an image logo -->
-          <!-- <img src="assets/img/logo.png" alt=""> -->
+        <a href="index.html" class="logo d-flex align-items-center">
           <h1 class="sitename">
             <img src="assets/img/2.jpg" width="40px" height="45px" />Top
           </h1>
@@ -79,12 +67,12 @@ $conn->set_charset("utf8mb4");
 
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="index.html" class="active">首頁</a></li>
+            <li><a href="index.html" >首頁</a></li>
             <li><a href="news.html">最新消息</a></li>
-            <li><a href="students.php">學生查詢</a></li>
+            <li><a href="students.php" class="active">學生查詢</a></li>
             <li><a href="lesson.html">課程查詢</a></li>
-            <li><a href="personal.html">個人設置</a></li>
-            <li><a href="contact.html">聯絡我們</a></li>
+            <li><a href="contact.html">關於我們</a></li>
+            <li><a href="login.html">登入</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>

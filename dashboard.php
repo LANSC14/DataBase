@@ -1,28 +1,17 @@
-<?php
-// 連接至 MySQL
+ <?php
+if (mysqli_connect_errno()) {
+    echo "连接至 MySQL 失败: " . mysqli_connect_error();
+}
+
 $conn = mysqli_connect('localhost', 'root', '', '113dbb06');
+mysqli_query($conn, 'SET NAMES utf8');
+mysqli_query($conn, 'SET CHARACTER_SET_CLIENT=utf8');
+mysqli_query($conn, 'SET CHARACTER_SET_RESULTS=utf8');
 
-if (!$conn) {
-    die("連接至 MySQL 失敗: " . mysqli_connect_error());
-}
+// 設置資料庫連線的字符集為 UTF-8
+$conn->set_charset("utf8mb4");
 
-mysqli_set_charset($conn, "utf8");
-
-// 查詢課程資料
-if (isset($_POST['search_term'])) {
-    $searchTerm = mysqli_real_escape_string($conn, $_POST['search_term']);
-    $query = "SELECT * FROM lessons WHERE name LIKE '%$searchTerm%'";
-    $result = mysqli_query($conn, $query);
-
-    $lessons = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $lessons[] = $row;
-    }
-    echo json_encode($lessons);
-    exit();
-}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,14 +46,15 @@ if (isset($_POST['search_term'])) {
                 </h1>
             </a>
             <nav id="navmenu" class="navmenu">
-                <ul>
-                    <li><a href="index.html" class="active">首頁</a></li>
-                    <li><a href="news.html">最新消息</a></li>
-                    <li><a href="students.php">學生查詢</a></li>
-                    <li><a href="personal.html">個人設置</a></li>
-                    <li><a href="contact.html">聯絡我們</a></li>
-                    <li><a href="login.html">登入</a></li>
-                </ul>
+             <ul>
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="news.html">最新消息</a></li>
+                <li><a href="students.php">學生查詢</a></li>
+                <li><a href="lesson.php" >課程查詢</a></li>
+               
+                <li><a href="contact.html">關於我們</a></li>
+                <li><a href="login.html">登入</a></li>
+             </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
         </div>

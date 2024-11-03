@@ -1,9 +1,23 @@
+<?php
+if (mysqli_connect_errno()) {
+    echo "连接至 MySQL 失败: " . mysqli_connect_error();
+}
+
+$conn = mysqli_connect('localhost', '113dbb06', '2476-3247', '113dbb06');
+mysqli_query($conn, 'SET NAMES utf8');
+mysqli_query($conn, 'SET CHARACTER_SET_CLIENT=utf8');
+mysqli_query($conn, 'SET CHARACTER_SET_RESULTS=utf8');
+
+// 設置資料庫連線的字符集為 UTF-8
+$conn->set_charset("utf8mb4");
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>個人設置</title>
+    <title>課程查詢</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
 
@@ -37,24 +51,14 @@
 
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet" />
-
-    <!-- =======================================================
-  * Template Name: Active
-  * Template URL: https://bootstrapmade.com/active-bootstrap-website-template/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
   </head>
 
-  <body class="blog-page">
+  <body class="portfolio-page">
     <header id="header" class="header d-flex align-items-center sticky-top">
       <div
         class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between"
       >
         <a href="index.html" class="logo d-flex align-items-center">
-          <!-- Uncomment the line below if you also wish to use an image logo -->
-          <!-- <img src="assets/img/logo.png" alt=""> -->
           <h1 class="sitename">
             <img src="assets/img/2.jpg" width="40px" height="45px" />Top
           </h1>
@@ -62,12 +66,12 @@
 
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="index.html" class="active">首頁</a></li>
+            <li><a href="index.html" >首頁</a></li>
             <li><a href="news.html">最新消息</a></li>
-            <li><a href="students.php">學生查詢</a></li>
-            <li><a href="test.php">課程查詢</a></li>
-            <li><a href="personal.html">個人設置</a></li>
-            <li><a href="contact.html">聯絡我們</a></li>
+            <li><a href="students.php" >學生查詢</a></li>
+            <li><a href="lesson.html" class="active">課程查詢</a></li>
+            
+            <li><a href="contact.html">關於我們</a></li>
             <li><a href="login.html">登入</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -75,23 +79,62 @@
       </div>
     </header>
 
-    <main class="main">
+<main class="main">
       <!-- Page Title -->
       <div class="page-title light-background">
         <div class="container">
-          <h1>個人設置</h1>
+          <h1>課程查詢</h1>
           <nav class="breadcrumbs">
             <ol>
               <li><a href="index.html">首頁</a></li>
-              <li class="current">個人設置</li>
+              <li class="current">課程查詢</li>
             </ol>
           </nav>
         </div>
       </div>
       <!-- End Page Title -->
-    </main>
 
-    <footer id="footer" class="footer light-background">
+    <div class="container">
+        <h2>課程查詢</h2>
+        <form action="" method="get">
+            <select name="lesson_field">
+                <option value="name">課程名稱</option>
+                <option value="department">系別</option>
+                <option value="prof">教授</option>
+                <option value="classroom">教室</option>
+            </select>
+            <input type="text" name="lesson_key" />
+            <input type="submit" value="查詢" />
+        </form>
+
+        <?php 
+        // 如果表單被提交
+        if (isset($_GET['lesson_field']) && isset($_GET['lesson_key'])) {
+            $field = $_GET['lesson_field']; // 獲取用戶選擇的欄位
+            $key = $_GET['lesson_key']; // 獲取用戶輸入的關鍵字
+
+            // 防止SQL注入攻擊
+            $field = $conn->real_escape_string($field);
+            $key = $conn->real_escape_string($key);
+
+            // 查詢 lesson 資料表中的資料
+            $sql = "SELECT lessonid, name, department, prof, classroom, date FROM lesson WHERE $field LIKE '%$key%'";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo " - 課程名稱: " . $row["name"] . " - 系別: " . $row["department"] . " - 教授: " . $row["prof"] . " - 教室: " . $row["classroom"] . " - 日期: " . $row["date"] . "<br>";
+                }
+            } else {
+                echo "沒有找到資料";
+            }
+        } 
+        ?>
+  
+    </div>
+</main>
+
+ <footer id="footer" class="footer light-background">
       <div class="container">
         <div class="row g-4 justify-content-center">
           <div class="col-md-6 col-lg-3 mb-3 mb-md-0">
@@ -122,6 +165,7 @@
       </div>
     </footer>
 
+   
     <!-- Scroll Top -->
     <a
       href="#"
