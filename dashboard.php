@@ -3,7 +3,7 @@ if (mysqli_connect_errno()) {
     echo "连接至 MySQL 失败: " . mysqli_connect_error();
 }
 
-$conn = mysqli_connect('localhost', 'root', '', '113dbb06');
+$conn = mysqli_connect('localhost', '113dbb06', '2476-3247', '113dbb06');
 mysqli_query($conn, 'SET NAMES utf8');
 mysqli_query($conn, 'SET CHARACTER_SET_CLIENT=utf8');
 mysqli_query($conn, 'SET CHARACTER_SET_RESULTS=utf8');
@@ -11,6 +11,13 @@ mysqli_query($conn, 'SET CHARACTER_SET_RESULTS=utf8');
 // 設置資料庫連線的字符集為 UTF-8
 $conn->set_charset("utf8mb4");
 
+// 設定預設顯示區域
+$defaultSection = 'courses';
+if (isset($_GET['student_field']) && isset($_GET['student_key'])) {
+    $defaultSection = 'students';
+} elseif (isset($_GET['lesson_field']) && isset($_GET['lesson_key'])) {
+    $defaultSection = 'courses';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +35,6 @@ $conn->set_charset("utf8mb4");
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-
 </head>
 
 <body>
@@ -61,8 +67,6 @@ $conn->set_charset("utf8mb4");
                         <ul class="nav">
                             <li class="nav-item"><a class="nav-link" href="index.html">首頁</a></li>
                             <li class="nav-item"><a class="nav-link" href="news.html">最新消息</a></li>
-                            <li class="nav-item"><a class="nav-link" href="students.php">學生查詢</a></li>
-                            <li class="nav-item"><a class="nav-link" href="lesson.php">課程查詢</a></li>
                             <li class="nav-item"><a class="nav-link" href="contact.html">關於我們</a></li>
                             <li class="nav-item"><a class="nav-link" href="login.html">登入</a></li>
                         </ul>
@@ -143,12 +147,19 @@ $conn->set_charset("utf8mb4");
         </div>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
+    <!-- Bootstrap JS 和依賴 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Javascript to handle section display -->
+    <!-- 顯示特定區域的 JavaScript -->
     <script>
+        // 設定初始顯示的區域
+        const defaultSection = "<?php echo $defaultSection; ?>";
+        document.addEventListener("DOMContentLoaded", function() {
+            showSection(defaultSection);
+        });
+
         function showSection(sectionId) {
+            // 隱藏所有區域，顯示指定的區域
             document.querySelectorAll('.my-4').forEach(section => {
                 section.classList.add('d-none');
             });
