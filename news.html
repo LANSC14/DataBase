@@ -37,6 +37,25 @@
 
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet" />
+    <style>
+      .marquee-text {
+        display: inline-block;
+        animation: marquee 10s linear infinite;
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translateX(
+            100%
+          ); /* Start from the right edge of the screen */
+        }
+        100% {
+          transform: translateX(
+            -100%
+          ); /* Move to the left edge of the screen */
+        }
+      }
+    </style>
   </head>
 
   <body class="services-page">
@@ -78,26 +97,136 @@
       <!-- End Page Title -->
 
       <!-- About Section -->
-      <section id="about" class="about section">
+      <section id="about" class="about section bg-light py-5">
         <div class="container">
           <div class="row align-items-center justify-content-between">
-            <div
-              class="col-lg-7 mb-5 mb-lg-0 order-lg-2"
-              data-aos="fade-up"
-              data-aos-delay="400"
-            >
-              <div class="swiper init-swiper">
-                <script type="application/json" class="swiper-config"></script>
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                    <h1>
-                      <div class="slide-title">最新消息</div>
-                    </h1>
-                    <img src="assets/img/6.jpg" width="500px" height="300px" />
+            <!-- Text Content -->
+            <div class="col-lg-6 mb-5 mb-lg-0">
+              <h2 class="display-4 text-primary">最新資訊</h2>
+              <p class="lead text-muted">
+                了解蛋漿大學的選課系統及其優點，並探索關於入學率與成績的視覺化數據。
+              </p>
+
+              <!-- Key Metrics (Cards) -->
+              <div class="row">
+                <div class="col-md-4 mb-4">
+                  <div class="card shadow-sm">
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">入學率</h5>
+                      <p class="card-text display-4">85%</p>
+                      <p class="text-muted">
+                        每年入學的學生比例，顯示出學校的吸引力與競爭力。
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <div class="swiper-pagination"></div>
+                <div class="col-md-4 mb-4">
+                  <div class="card shadow-sm">
+                    <div class="card-body">
+                      <h5 class="card-title text-success">平均成績</h5>
+                      <p class="card-text display-4">3.75</p>
+                      <p class="text-muted">
+                        學生的平均學業成績，反映出學校的教育質量。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                  <div class="card shadow-sm">
+                    <div class="card-body">
+                      <h5 class="card-title text-warning">選課系統優點</h5>
+                      <p class="card-text">
+                        快速、直觀、方便的選課流程，大大提高學生選課的效率。
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
+            </div>
+
+            <!-- Image/Swiper -->
+            <div class="col-lg-6 mb-5 mb-lg-0">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">學業表現趨勢圖</h5>
+                  <p class="card-text">
+                    根據過去幾年的數據，展示學生的學業表現變化，幫助學生與學校瞭解整體趨勢。
+                  </p>
+                  <div
+                    class="chart-container"
+                    style="position: relative; height: 300px"
+                  >
+                    <canvas id="performanceChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Additional Insights -->
+          <div class="row mt-5">
+            <div class="col-12">
+              <h3 class="text-center text-primary">選課系統的優勢</h3>
+              <p class="text-center text-muted">
+                這些優勢使得我們的選課系統與眾不同，帶來更便捷的選課體驗。
+              </p>
+              <div class="row text-center">
+                <div class="col-md-4">
+                  <i class="fas fa-clock fa-3x text-info"></i>
+                  <h4>快速反應</h4>
+                  <p>選課過程快速且即時反應，避免選課過程中的延遲。</p>
+                </div>
+                <div class="col-md-4">
+                  <i class="fas fa-mobile-alt fa-3x text-success"></i>
+                  <h4>行動端支持</h4>
+                  <p>系統支援手機端操作，隨時隨地輕鬆選課。</p>
+                </div>
+                <div class="col-md-4">
+                  <i class="fas fa-users fa-3x text-warning"></i>
+                  <h4>學生友好</h4>
+                  <p>系統設計以學生需求為主，簡單易懂，減少學習成本。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <!-- Horizontal Marquee Section with Bootstrap -->
+            <section id="marquee-section" class="py-4">
+              <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <!-- Marquee using Bootstrap's .text-nowrap class -->
+                    <div class="d-flex">
+                      <div
+                        class="text-nowrap"
+                        style="overflow: hidden; white-space: nowrap"
+                      >
+                        <div class="d-inline-block marquee-text">
+                          歡迎使用蛋漿選課系統!d(`･∀･)b
+                          歡迎使用蛋漿選課系統!d(`･∀･)b
+                          歡迎使用蛋漿選課系統!d(`･∀･)b
+                          歡迎使用蛋漿選課系統!d(`･∀･)b
+                          歡迎使用蛋漿選課系統!d(`･∀･)b
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="container section-title mt-5" data-aos="fade-up">
+            <h2 class="text-center">校園環境</h2>
+            <div class="post-img my-4 text-center">
+              <!-- 使用 max-width 來控制圖片大小 -->
+              <img
+                src="assets/img/campus-1.jpg"
+                class="img-fluid d-block mx-auto"
+                style="max-width: 50%"
+                alt="校園環境圖片"
+              />
             </div>
           </div>
         </div>
@@ -108,15 +237,22 @@
       <div class="container">
         <div class="row g-4 justify-content-center">
           <div class="col-md-6 col-lg-3 mb-3 mb-md-0">
-            <div class="widget text-center">
-              <!-- Added text-center class here -->
-              <h3 class="widget-heading">聯絡我們</h3>
-              <p>
-                淡水校園：新北市淡水區英專路151號<br />
-                臺北校園：台北市大安區金華街199巷5號<br />
+            <div
+              class="widget d-flex flex-column align-items-center"
+              style="padding-left: 20px; padding-right: 20px"
+            >
+              <!-- Added d-flex, flex-column and align-items-center to center the content -->
+              <h3 class="widget-heading text-center">聯絡我們</h3>
+              <p class="text-center" style="white-space: nowrap">
+                淡水校園：新北市淡水區英專路151號
+              </p>
+              <p class="text-center" style="white-space: nowrap">
+                臺北校園：台北市大安區金華街199巷5號
+              </p>
+              <p class="text-center" style="white-space: nowrap">
                 蘭陽校園：宜蘭縣礁溪鄉林美村林尾路180號
               </p>
-              <p class="mb-0">
+              <p class="mb-0 text-center">
                 <a href="contact.html" class="btn-learn-more">查看更多</a>
               </p>
             </div>
@@ -134,7 +270,6 @@
         </p>
       </div>
     </footer>
-
     <!-- Scroll Top -->
     <a
       href="#"
@@ -148,6 +283,40 @@
     <script src="assets/vendor/aos/aos.js"></script>
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+
+    <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // 學業表現趨勢圖
+      var ctx = document.getElementById("performanceChart").getContext("2d");
+      var performanceChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: ["2019", "2020", "2021", "2022", "2023"],
+          datasets: [
+            {
+              label: "平均成績",
+              data: [3.6, 3.7, 3.75, 3.8, 3.75],
+              borderColor: "rgba(75, 192, 192, 1)",
+              borderWidth: 2,
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: "學生學業表現趨勢",
+            },
+            tooltip: {
+              enabled: true,
+            },
+          },
+        },
+      });
+    </script>
   </body>
 </html>

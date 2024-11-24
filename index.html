@@ -89,24 +89,44 @@
                     "breakpoints": {
                       "320": {
                         "slidesPerView": 1,
-                        "spaceBetween": 40
+                        "spaceBetween": 10
+                      },
+                      "576": {
+                        "slidesPerView": 1,
+                        "spaceBetween": 10
+                      },
+                      "768": {
+                        "slidesPerView": 1,
+                        "spaceBetween": 15
                       },
                       "1200": {
                         "slidesPerView": 1,
-                        "spaceBetween": 1
+                        "spaceBetween": 20
                       }
                     }
                   }
                 </script>
                 <div class="swiper-wrapper">
                   <div class="swiper-slide">
-                    <img src="assets/img/10.png" width="700px" height="500px" />
+                    <img
+                      src="assets/img/10.jpg"
+                      class="img-fluid"
+                      alt="image1"
+                    />
                   </div>
                   <div class="swiper-slide">
-                    <img src="assets/img/4.jpg" width="700px" height="500px" />
+                    <img
+                      src="assets/img/egg.jpg"
+                      class="img-fluid"
+                      alt="image2"
+                    />
                   </div>
                   <div class="swiper-slide">
-                    <img src="assets/img/5.jpg" width="700px" height="500px" />
+                    <img
+                      src="assets/img/egg-1.jpg"
+                      class="img-fluid"
+                      alt="image3"
+                    />
                   </div>
                 </div>
                 <div class="swiper-pagination"></div>
@@ -115,7 +135,7 @@
             <div class="col-lg-4 order-lg-1">
               <h1 class="mb-4" data-aos="fade-up">歡迎來到蛋漿選課系統</h1>
               <p class="mt-5" data-aos="fade-up">
-                <a href="lesson.php" class="btn btn-get-started">進入選課</a>
+                <a href="login.html" class="btn btn-get-started">進入選課</a>
               </p>
             </div>
           </div>
@@ -127,15 +147,22 @@
       <div class="container">
         <div class="row g-4 justify-content-center">
           <div class="col-md-6 col-lg-3 mb-3 mb-md-0">
-            <div class="widget text-center">
-              <!-- Added text-center class here -->
-              <h3 class="widget-heading">聯絡我們</h3>
-              <p>
+            <div
+              class="widget d-flex flex-column align-items-center"
+              style="padding-left: 20px; padding-right: 20px"
+            >
+              <!-- Added d-flex, flex-column and align-items-center to center the content -->
+              <h3 class="widget-heading text-center">聯絡我們</h3>
+              <p class="text-center" style="white-space: nowrap">
                 淡水校園：新北市淡水區英專路151號
+              </p>
+              <p class="text-center" style="white-space: nowrap">
                 臺北校園：台北市大安區金華街199巷5號
+              </p>
+              <p class="text-center" style="white-space: nowrap">
                 蘭陽校園：宜蘭縣礁溪鄉林美村林尾路180號
               </p>
-              <p class="mb-0">
+              <p class="mb-0 text-center">
                 <a href="contact.html" class="btn-learn-more">查看更多</a>
               </p>
             </div>
