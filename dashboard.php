@@ -19,6 +19,8 @@ if (isset($_GET['student_field']) && isset($_GET['student_key'])) {
     $defaultSection = 'courses';
 } elseif (isset($_GET['enroll_field']) && isset($_GET['enroll_key'])) {
     $defaultSection = 'enrollment';
+} elseif (isset($_GET['stat_type'])) {
+    $defaultSection = 'statistics'; // 如果選課統計的參數存在，預設顯示為統計區域
 }
 ?>
 <!DOCTYPE html>
@@ -154,46 +156,60 @@ if (isset($_GET['student_field']) && isset($_GET['student_key'])) {
                         }
                         ?>
                     </div>
+                  
+            <!-- 選課資料 -->
+<div id="enrollment" class="my-4 d-none">
+    <h2>選課資料查詢</h2>
+    <form action="" method="get">
+        <div class="input-group mb-3">
+            <select name="enroll_field_1" class="form-select">
+                <option value="student.name">學生姓名</option>
+                <option value="student.number">學號</option>
+                <option value="lesson.name">課程名稱</option>
+            </select>
+            <input type="text" name="enroll_key_1" class="form-control" />
+        </div>
+        <div class="input-group mb-3">
+            <select name="enroll_field_2" class="form-select">
+                <option value="student.name">學生姓名</option>
+                <option value="student.number">學號</option>
+                <option value="lesson.name">課程名稱</option>
+            </select>
+            <input type="text" name="enroll_key_2" class="form-control" />
+        </div>
+        <button class="btn btn-primary" type="submit">查詢</button>
+        <button class="btn btn-secondary" type="reset" onclick="window.location.href='?';">重製</button>
+    </form>
 
-                    <!-- 選課資料 -->
-                    <div id="enrollment" class="my-4 d-none">
-                        <h2>選課資料查詢</h2>
-                        <form action="" method="get">
-                            <div class="input-group mb-3">
-                                <select name="enroll_field" class="form-select">
-                                    <option value="student.name">學生姓名</option>
-                                    <option value="student.number">學號</option>
-                                    <option value="lesson.name">課程名稱</option>
-                                </select>
-                                <input type="text" name="enroll_key" class="form-control" />
-                                <button class="btn btn-primary" type="submit">查詢</button>
-                                <!-- 重製按鈕 -->
-                                <button class="btn btn-secondary" type="reset" onclick="window.location.href='?';">重製</button>
-                            </div>
-                        </form>
+    <?php 
+    if (isset($_GET['enroll_field_1']) && isset($_GET['enroll_key_1']) &&
+        isset($_GET['enroll_field_2']) && isset($_GET['enroll_key_2'])) {
+        
+        $field1 = $conn->real_escape_string($_GET['enroll_field_1']);
+        $key1 = $conn->real_escape_string($_GET['enroll_key_1']);
+        $field2 = $conn->real_escape_string($_GET['enroll_field_2']);
+        $key2 = $conn->real_escape_string($_GET['enroll_key_2']);
+    
+        $sql = "SELECT student.name AS student_name, student.number, lesson.name AS lesson_name, lesson.department 
+                FROM selection 
+                INNER JOIN student ON selection.studentID = student.studentid 
+                INNER JOIN lesson ON selection.lessonID = lesson.lessonid 
+                WHERE ($field1 LIKE '%$key1%') AND ($field2 LIKE '%$key2%')";
+        
+        $result = $conn->query($sql);
+    
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<div class='border-bottom py-2'>學生: " . $row['student_name'] . " - 學號: " . $row['number'] . " - 課程: " . $row['lesson_name'] . " - 系別: " . $row['department'] . "</div>";
+            }
+        } else {
+            echo "<p class='text-muted'>沒有找到資料</p>";
+        }
+    }
+    ?>
+</div>
 
-                        <?php 
-                        if (isset($_GET['enroll_field']) && isset($_GET['enroll_key'])) {
-                            $field = $conn->real_escape_string($_GET['enroll_field']);
-                            $key = $conn->real_escape_string($_GET['enroll_key']);
 
-                            $sql = "SELECT student.name AS student_name, student.number, lesson.name AS lesson_name, lesson.department 
-                                    FROM selection 
-                                    INNER JOIN student ON selection.studentID = student.studentid 
-                                    INNER JOIN lesson ON selection.lessonID = lesson.lessonid 
-                                    WHERE $field LIKE '%$key%'";
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<div class='border-bottom py-2'>學生: " . $row["student_name"] . " - 學號: " . $row["number"] . " - 課程: " . $row["lesson_name"] . " - 系別: " . $row["department"] . "</div>";
-                                }
-                            } else {
-                                echo "<p class='text-muted'>沒有找到資料</p>";
-                            }
-                        }
-                        ?>
-                    </div>
 <!-- 選課統計 -->
 <div id="statistics" class="my-4 d-none">
     <h2>選課統計</h2>
@@ -313,17 +329,7 @@ if (isset($_GET['student_field']) && isset($_GET['student_key'])) {
             echo "<p class='text-muted'>沒有找到統計資料</p>";
         }
     }
-    // 設定預設顯示區域
-$defaultSection = 'courses';
-if (isset($_GET['student_field']) && isset($_GET['student_key'])) {
-    $defaultSection = 'students';
-} elseif (isset($_GET['lesson_field']) && isset($_GET['lesson_key'])) {
-    $defaultSection = 'courses';
-} elseif (isset($_GET['enroll_field']) && isset($_GET['enroll_key'])) {
-    $defaultSection = 'enrollment';
-} elseif (isset($_GET['stat_type'])) {
-    $defaultSection = 'statistics'; // 如果選課統計的參數存在，預設顯示為統計區域
-}
+    
 
     ?>
 </div>
@@ -335,20 +341,38 @@ if (isset($_GET['student_field']) && isset($_GET['student_key'])) {
 </div>
 
     <!-- JavaScript -->
-    <script>
-        function showSection(sectionId) {
-            document.querySelectorAll('div[id]').forEach(div => {
-                div.classList.add('d-none');
-            });
-            document.getElementById(sectionId).classList.remove('d-none');
-        }
+    <!-- JavaScript -->
+<script>
+    function showSection(sectionId) {
+        document.querySelectorAll('div[id]').forEach(div => {
+            div.classList.add('d-none');
+        });
+        document.getElementById(sectionId).classList.remove('d-none');
+    }
 
-       // 預設顯示的區域
-document.addEventListener('DOMContentLoaded', function() {
-    showSection('<?php echo $defaultSection; ?>');
-});
-    </script>
-   
+    // 預設顯示的區域
+    document.addEventListener('DOMContentLoaded', function() {
+        showSection('<?php echo $defaultSection; ?>');
+    });
+
+    // 表單提交後顯示查詢結果區域
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // 防止默認提交
+            const data = new URLSearchParams(new FormData(form));
+
+            fetch(window.location.href.split('?')[0] + '?' + data.toString())
+                .then(response => response.text())
+                .then(html => {
+                    document.body.innerHTML = html;
+                    showSection('<?php echo $defaultSection; ?>'); // 顯示查詢結果區域
+                });
+        });
+    });
+</script>
+
+
+
 
     
 </body>
