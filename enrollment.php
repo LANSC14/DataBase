@@ -1,14 +1,14 @@
 <?php
-// 连接数据库
-$conn = mysqli_connect('localhost', '113dbb06', '2476-3247', '113dbb06');
 if (mysqli_connect_errno()) {
     echo "连接至 MySQL 失败: " . mysqli_connect_error();
-    exit();
 }
 
+$conn = mysqli_connect('localhost', '113dbb06', '2476-3247', '113dbb06');
 mysqli_query($conn, 'SET NAMES utf8');
 mysqli_query($conn, 'SET CHARACTER_SET_CLIENT=utf8');
 mysqli_query($conn, 'SET CHARACTER_SET_RESULTS=utf8');
+
+// 設置資料庫連線的字符集為 UTF-8
 $conn->set_charset("utf8mb4");
 
 // 新增選課資料處理
@@ -16,20 +16,30 @@ if (isset($_POST['add_student_id']) && isset($_POST['add_lesson_id'])) {
     $student_id = $conn->real_escape_string($_POST['add_student_id']);
     $lesson_id = $conn->real_escape_string($_POST['add_lesson_id']);
     
-    // 插入選課資料
-    $sql_insert = "INSERT INTO selection (studentID, lessonID) VALUES ('$student_id', '$lesson_id')";
-    if ($conn->query($sql_insert) === TRUE) {
-        echo "<script>alert('選課資料新增成功');</script>";
+    // 檢查是否已經有相同的選課資料
+    $check_sql = "SELECT * FROM selection WHERE studentID = '$student_id' AND lessonID = '$lesson_id'";
+    $check_result = $conn->query($check_sql);
+    
+    if ($check_result->num_rows > 0) {
+        echo "<script>alert('該選課資料已存在');</script>";
     } else {
-        echo "<script>alert('選課資料新增失敗');</script>";
+        // 插入選課資料
+        $sql_insert = "INSERT INTO selection (studentID, lessonID) VALUES ('$student_id', '$lesson_id')";
+        if ($conn->query($sql_insert) === TRUE) {
+            echo "<script>alert('選課資料新增成功');</script>";
+        } else {
+            echo "<script>alert('選課資料新增失敗');</script>";
+        }
     }
 }
 
 // 刪除選課資料處理
-if (isset($_GET['delete_id'])) {
-    $delete_id = $conn->real_escape_string($_GET['delete_id']);
-    // 由於沒有 selectionid 欄位，使用 studentID 和 lessonID 刪除
-    $delete_sql = "DELETE FROM selection WHERE studentID = '$delete_id'";
+if (isset($_GET['delete_id']) && isset($_GET['lesson_id'])) {
+    $student_id = $conn->real_escape_string($_GET['delete_id']);
+    $lesson_id = $conn->real_escape_string($_GET['lesson_id']);
+    
+    // 刪除對應學生和課程的選課資料
+    $delete_sql = "DELETE FROM selection WHERE studentID = '$student_id' AND lessonID = '$lesson_id'";
     if ($conn->query($delete_sql) === TRUE) {
         echo "<script>alert('選課資料刪除成功');</script>";
     } else {
@@ -39,8 +49,8 @@ if (isset($_GET['delete_id'])) {
 
 // 修改選課資料處理
 if (isset($_POST['edit_student_id']) && isset($_POST['edit_lesson_id'])) {
-    $student_id = $_POST['edit_student_id'];
-    $lesson_id = $_POST['edit_lesson_id'];
+    $student_id = $conn->real_escape_string($_POST['edit_student_id']);
+    $lesson_id = $conn->real_escape_string($_POST['edit_lesson_id']);
     
     // 更新選課資料
     $update_sql = "UPDATE selection SET studentID = '$student_id', lessonID = '$lesson_id' WHERE studentID = '$student_id' AND lessonID = '$lesson_id'";
