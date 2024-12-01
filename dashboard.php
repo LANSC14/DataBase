@@ -370,10 +370,5 @@ if (isset($_GET['student_field']) && isset($_GET['student_key'])) {
         });
     });
 </script>
-
-
-
-
-    
 </body>
 </html>
