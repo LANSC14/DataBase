@@ -10,6 +10,7 @@ mysqli_query($conn, 'SET CHARACTER_SET_RESULTS=utf8');
 
 // 設置資料庫連線的字符集為 UTF-8
 $conn->set_charset("utf8mb4");
+
 ?>
 
 <!DOCTYPE html>

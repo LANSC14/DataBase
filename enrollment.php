@@ -11,55 +11,6 @@ mysqli_query($conn, 'SET CHARACTER_SET_RESULTS=utf8');
 // 設置資料庫連線的字符集為 UTF-8
 $conn->set_charset("utf8mb4");
 
-// 新增選課資料處理
-if (isset($_POST['add_student_id']) && isset($_POST['add_lesson_id'])) {
-    $student_id = $conn->real_escape_string($_POST['add_student_id']);
-    $lesson_id = $conn->real_escape_string($_POST['add_lesson_id']);
-    
-    // 檢查是否已經有相同的選課資料
-    $check_sql = "SELECT * FROM selection WHERE studentID = '$student_id' AND lessonID = '$lesson_id'";
-    $check_result = $conn->query($check_sql);
-    
-    if ($check_result->num_rows > 0) {
-        echo "<script>alert('該選課資料已存在');</script>";
-    } else {
-        // 插入選課資料
-        $sql_insert = "INSERT INTO selection (studentID, lessonID) VALUES ('$student_id', '$lesson_id')";
-        if ($conn->query($sql_insert) === TRUE) {
-            echo "<script>alert('選課資料新增成功');</script>";
-        } else {
-            echo "<script>alert('選課資料新增失敗');</script>";
-        }
-    }
-}
-
-// 刪除選課資料處理
-if (isset($_GET['delete_id']) && isset($_GET['lesson_id'])) {
-    $student_id = $conn->real_escape_string($_GET['delete_id']);
-    $lesson_id = $conn->real_escape_string($_GET['lesson_id']);
-    
-    // 刪除對應學生和課程的選課資料
-    $delete_sql = "DELETE FROM selection WHERE studentID = '$student_id' AND lessonID = '$lesson_id'";
-    if ($conn->query($delete_sql) === TRUE) {
-        echo "<script>alert('選課資料刪除成功');</script>";
-    } else {
-        echo "<script>alert('選課資料刪除失敗');</script>";
-    }
-}
-
-// 修改選課資料處理
-if (isset($_POST['edit_student_id']) && isset($_POST['edit_lesson_id'])) {
-    $student_id = $conn->real_escape_string($_POST['edit_student_id']);
-    $lesson_id = $conn->real_escape_string($_POST['edit_lesson_id']);
-    
-    // 更新選課資料
-    $update_sql = "UPDATE selection SET studentID = '$student_id', lessonID = '$lesson_id' WHERE studentID = '$student_id' AND lessonID = '$lesson_id'";
-    if ($conn->query($update_sql) === TRUE) {
-        echo "<script>alert('選課資料修改成功');</script>";
-    } else {
-        echo "<script>alert('選課資料修改失敗');</script>";
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -112,72 +63,75 @@ if (isset($_POST['edit_student_id']) && isset($_POST['edit_lesson_id'])) {
                     </nav>
                 </header>
 
-                <div class="container">
-                    <!-- 選課資料 -->
-                    <div id="enrollment" class="my-4">
-                        <h2>選課資料查詢</h2>
-                        <form action="" method="get">
-                            <div class="input-group mb-3">
-                                <select name="enroll_field_1" class="form-select">
-                                    <option value="student.name">學生姓名</option>
-                                    <option value="student.number">學號</option>
-                                    <option value="lesson.name">課程名稱</option>
-                                </select>
-                                <input type="text" name="enroll_key_1" class="form-control" />
-                            </div>
-                            <div class="input-group mb-3">
-                                <select name="enroll_field_2" class="form-select">
-                                    <option value="student.name">學生姓名</option>
-                                    <option value="student.number">學號</option>
-                                    <option value="lesson.name">課程名稱</option>
-                                </select>
-                                <input type="text" name="enroll_key_2" class="form-control" />
-                            </div>
-                            <button class="btn btn-primary" type="submit">查詢</button>
-                            <!-- 新增選課資料模態框 -->
-                            <button class="btn btn-success my-4" data-bs-toggle="modal" data-bs-target="#addModal">新增選課資料</button>
-                        </form>
+                <div class="container my-4">
+    <h2>選課資料查詢</h2>
+    <form method="get" action="">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <select name="enroll_field_1" id="enroll_field_1" class="form-select">
+                    <option value="student.name">學生姓名</option>
+                    <option value="student.number">學號</option>
+                </select>
+                <input type="text" name="enroll_key_1" class="form-control mt-2" placeholder="輸入關鍵字">
+            </div>
+            <div class="col-md-6">
+    <select name="enroll_field_2" id="enroll_field_2" class="form-select">
+        <option value="lesson.name">課程名稱</option>
+        <option value="lesson.prof">教師姓名</option>
+    </select>
+    <input type="text" name="enroll_key_2" class="form-control mt-2" placeholder="輸入關鍵字">
+</div>
 
-                        <?php 
-                         if (isset($_GET['enroll_field_1']) && isset($_GET['enroll_key_1']) &&
-                             isset($_GET['enroll_field_2']) && isset($_GET['enroll_key_2'])) {
-        
-                            $field1 = $conn->real_escape_string($_GET['enroll_field_1']);
-                            $key1 = $conn->real_escape_string($_GET['enroll_key_1']);
-                            $field2 = $conn->real_escape_string($_GET['enroll_field_2']);
-                            $key2 = $conn->real_escape_string($_GET['enroll_key_2']);
-    
-                            $sql = "SELECT student.name AS student_name, student.number, lesson.name AS lesson_name, lesson.department, selection.studentID, selection.lessonID 
-                                    FROM selection 
-                                    INNER JOIN student ON selection.studentID = student.studentid 
-                                    INNER JOIN lesson ON selection.lessonID = lesson.lessonid 
-                                    WHERE ($field1 LIKE '%$key1%') AND ($field2 LIKE '%$key2%')";
-                            $result = $conn->query($sql);
-    
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<div class='border rounded p-3 mb-3'>
-                                          <p>學生姓名: " . $row['student_name'] . "</p>
-                                          <p>學號: " . $row['number'] . "</p>
-                                          <p>課程名稱: " . $row['lesson_name'] . "</p>
-                                          <p>系所: " . $row['department'] . "</p>
-                                          <a href='?delete_id=" . $row['studentID'] . "' class='btn btn-danger'>刪除</a>
-                                          <a href='#' class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#editModal' data-student-id='" . $row['studentID'] . "' data-lesson-id='" . $row['lessonID'] . "'>修改</a>
-                                          </div>";
-                                }
-                            } else {
-                                echo "<p>無符合條件的選課資料。</p>";
-                            }
-                        }
-                        ?>
+        </div>
+        <button type="submit" class="btn btn-primary">查詢</button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">新增選課資料</button>
+    </form>
 
-                    </div>
-                </div>
-            </main>
+    <div class="my-4">
+        <h3>查詢結果</h3>
+        <div id="queryResults">
+            <!-- 查詢結果 -->
+            <?php
+            if (isset($_GET['enroll_field_1'], $_GET['enroll_key_1'], $_GET['enroll_field_2'], $_GET['enroll_key_2'])) {
+    $field1 = $conn->real_escape_string($_GET['enroll_field_1']);
+    $key1 = $conn->real_escape_string($_GET['enroll_key_1']);
+    $field2 = $conn->real_escape_string($_GET['enroll_field_2']);
+    $key2 = $conn->real_escape_string($_GET['enroll_key_2']);
+
+    // 調整查詢語句以包含教師姓名
+    $sql = "SELECT student.name AS student_name, 
+               student.number AS student_number, 
+               lesson.name AS lesson_name, 
+               lesson.prof AS teacher_name,
+               selection.studentID, 
+               selection.lessonID 
+        FROM selection 
+        INNER JOIN student ON selection.studentID = student.studentid 
+        INNER JOIN lesson ON selection.lessonID = lesson.lessonid 
+        WHERE $field1 LIKE '%$key1%' AND $field2 LIKE '%$key2%'";
+
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo "<div class='border rounded p-3 mb-3'>
+              <p>學生姓名: " . $row['student_name'] . "</p>
+              <p>學號: " . $row['student_number'] . "</p>
+              <p>課程名稱: " . $row['lesson_name'] . "</p>
+              <p>教師姓名: " . $row['teacher_name'] . "</p>
+              <a href='?delete_id=" . $row['studentID'] . "&lesson_id=" . $row['lessonID'] . "' class='btn btn-danger'>刪除</a>
+              </div>";
+    }
+} else {
+    echo "<p>無符合條件的選課資料。</p>";
+}
+}
+            ?>
         </div>
     </div>
+</div>
 
-    <!-- 新增選課資料模態框 -->
+<!-- 新增選課模態框 -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -186,13 +140,12 @@ if (isset($_POST['edit_student_id']) && isset($_POST['edit_lesson_id'])) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="">
+                <form method="post" action="">
                     <div class="mb-3">
                         <label for="add_student_id" class="form-label">學生</label>
-                        <select name="add_student_id" class="form-select" required>
+                        <select name="add_student_id" id="add_student_id" class="form-select" required>
                             <option value="">請選擇學生</option>
                             <?php
-                            // 获取所有学生
                             $student_sql = "SELECT studentid, name FROM student";
                             $student_result = $conn->query($student_sql);
                             while ($row = $student_result->fetch_assoc()) {
@@ -203,10 +156,9 @@ if (isset($_POST['edit_student_id']) && isset($_POST['edit_lesson_id'])) {
                     </div>
                     <div class="mb-3">
                         <label for="add_lesson_id" class="form-label">課程</label>
-                        <select name="add_lesson_id" class="form-select" required>
+                        <select name="add_lesson_id" id="add_lesson_id" class="form-select" required>
                             <option value="">請選擇課程</option>
                             <?php
-                            // 获取所有课程
                             $lesson_sql = "SELECT lessonid, name FROM lesson";
                             $lesson_result = $conn->query($lesson_sql);
                             while ($row = $lesson_result->fetch_assoc()) {
@@ -215,59 +167,51 @@ if (isset($_POST['edit_student_id']) && isset($_POST['edit_lesson_id'])) {
                             ?>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">新增</button>
+                    <button type="submit" name="add_enroll" class="btn btn-primary">新增</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-    <!-- 修改選課資料模態框 -->
-    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">修改選課資料</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST">
-                        <div class="mb-3">
-                            <label for="edit_student_id" class="form-label">學生</label>
-                            <select name="edit_student_id" class="form-select" id="edit_student_id" required>
-                                <option value="">請選擇學生</option>
-                                <?php
-                                // 獲取所有學生
-                                $student_sql = "SELECT studentid, name FROM student";
-                                $student_result = $conn->query($student_sql);
-                                while ($row = $student_result->fetch_assoc()) {
-                                    echo "<option value='" . $row['studentid'] . "'>" . $row['name'] . "</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
+<?php
+// 處理新增選課邏輯
+if (isset($_POST['add_enroll'])) {
+    $student_id = $conn->real_escape_string($_POST['add_student_id']);
+    $lesson_id = $conn->real_escape_string($_POST['add_lesson_id']);
 
-                        <div class="mb-3">
-                            <label for="edit_lesson_id" class="form-label">課程</label>
-                            <select name="edit_lesson_id" class="form-select" id="edit_lesson_id" required>
-                                <option value="">請選擇課程</option>
-                                <?php
-                                // 獲取所有課程
-                                $lesson_sql = "SELECT lessonid, name FROM lesson";
-                                $lesson_result = $conn->query($lesson_sql);
-                                while ($row = $lesson_result->fetch_assoc()) {
-                                    echo "<option value='" . $row['lessonid'] . "'>" . $row['name'] . "</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
+    $add_sql = "INSERT INTO selection (studentID, lessonID) VALUES ('$student_id', '$lesson_id')";
+    if ($conn->query($add_sql)) {
+        echo "<script>alert('新增成功'); window.location.href = '';</script>";
+    } else {
+        echo "<script>alert('新增失敗：" . $conn->error . "');</script>";
+    }
+}
 
-                        <button type="submit" class="btn btn-primary">更新</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+// 處理刪除選課邏輯
+if (isset($_GET['delete_id']) && isset($_GET['lesson_id'])) {
+    $student_id = $conn->real_escape_string($_GET['delete_id']);
+    $lesson_id = $conn->real_escape_string($_GET['lesson_id']);
+
+    // 先檢查記錄是否存在
+    $check_sql = "SELECT * FROM selection WHERE studentID = '$student_id' AND lessonID = '$lesson_id'";
+    $check_result = $conn->query($check_sql);
+
+    if ($check_result->num_rows > 0) {
+        // 記錄存在，執行刪除
+        $delete_sql = "DELETE FROM selection WHERE studentID = '$student_id' AND lessonID = '$lesson_id'";
+        if ($conn->query($delete_sql)) {
+            echo "<script>alert('刪除成功'); window.location.href = '';</script>";
+        } else {
+            echo "<script>alert('刪除失敗：" . $conn->error . "');</script>";
+        }
+    } else {
+       
+    }
+}
+?>
+
+
 
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
