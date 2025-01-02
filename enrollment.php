@@ -120,7 +120,9 @@ $conn->set_charset("utf8mb4");
               <p>課程名稱: " . $row['lesson_name'] . "</p>
               <p>教師姓名: " . $row['teacher_name'] . "</p>
               <a href='?delete_id=" . $row['studentID'] . "&lesson_id=" . $row['lessonID'] . "' class='btn btn-danger'>刪除</a>
+              <a href='#' class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#editModal' data-student-id='" . $row['studentID'] . "' data-lesson-id='" . $row['lessonID'] . "'>修改</a>
               </div>";
+
     }
 } else {
     echo "<p>無符合條件的選課資料。</p>";
@@ -211,6 +213,81 @@ if (isset($_GET['delete_id']) && isset($_GET['lesson_id'])) {
 }
 ?>
 
+<!-- 修改選課模態框 -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">修改選課資料</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="">
+                    <input type="hidden" name="edit_student_id" id="edit_student_id">
+                    <input type="hidden" name="edit_lesson_id" id="edit_lesson_id">
+                    <div class="mb-3">
+                        <label for="new_student_id" class="form-label">學生</label>
+                        <select name="new_student_id" id="new_student_id" class="form-select" required>
+                            <option value="">請選擇學生</option>
+                            <?php
+                            $student_sql = "SELECT studentid, name FROM student";
+                            $student_result = $conn->query($student_sql);
+                            while ($row = $student_result->fetch_assoc()) {
+                                echo "<option value='" . $row['studentid'] . "'>" . $row['name'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="new_lesson_id" class="form-label">課程</label>
+                        <select name="new_lesson_id" id="new_lesson_id" class="form-select" required>
+                            <option value="">請選擇課程</option>
+                            <?php
+                            $lesson_sql = "SELECT lessonid, name FROM lesson";
+                            $lesson_result = $conn->query($lesson_sql);
+                            while ($row = $lesson_result->fetch_assoc()) {
+                                echo "<option value='" . $row['lessonid'] . "'>" . $row['name'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <button type="submit" name="edit_enroll" class="btn btn-primary">修改</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php
+if (isset($_POST['edit_enroll'])) {
+    $old_student_id = $conn->real_escape_string($_POST['edit_student_id']);
+    $old_lesson_id = $conn->real_escape_string($_POST['edit_lesson_id']);
+    $new_student_id = $conn->real_escape_string($_POST['new_student_id']);
+    $new_lesson_id = $conn->real_escape_string($_POST['new_lesson_id']);
+
+    $update_sql = "UPDATE selection 
+                   SET studentID = '$new_student_id', lessonID = '$new_lesson_id' 
+                   WHERE studentID = '$old_student_id' AND lessonID = '$old_lesson_id'";
+    if ($conn->query($update_sql)) {
+        echo "<script>alert('修改成功'); window.location.href = '';</script>";
+    } else {
+        echo "<script>alert('修改失敗：" . $conn->error . "');</script>";
+    }
+}
+
+?>
+
+<script>
+    var editModal = document.getElementById('editModal');
+    editModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var studentId = button.getAttribute('data-student-id');
+        var lessonId = button.getAttribute('data-lesson-id');
+
+        document.getElementById('edit_student_id').value = studentId;
+        document.getElementById('edit_lesson_id').value = lessonId;
+    });
+</script>
 
 
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
